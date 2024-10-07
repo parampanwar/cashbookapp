@@ -1,0 +1,103 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+    
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .left-section {
+        background-color: white;
+        padding: 40px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+    
+    .left-section img {
+        width: 150px;
+    }
+    
+    .left-section h2 {
+        color: #333;
+    }
+    
+    .left-section p {
+        color: #666;
+    }
+    
+    .form-group {
+        margin-top: 20px;
+    }
+    
+    .login-btn, .google-btn {
+        display: block;
+        width: 100%;
+        margin-top: 20px;
+        padding: 10px;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .login-btn {
+        background-color: purple;
+    }
+    
+    .google-btn {
+        background-color: #4285f4;
+    }
+    
+    .right-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 50px;
+    }
+    
+    .right-section img {
+        max-width: 100%;
+        border-radius: 10px;
+    }
+    .resized-image {
+        width: 490px; 
+        height: auto; 
+    }
+    
+</style>
+
+<div class="login-container container">
+    <div class="left-section">
+       
+        <h2>Welcome back.</h2>
+        <p>Please enter your details.</p>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                {{ form.password }}
+            </div>
+       
+           
+            <button type="submit" class="login-btn">Sign in</button>
+     
+        </form>
+
+    </div>
+    <div class="right-section">
+        <img src="{% static 'image.png' %}" alt="Illustration" class="resized-image">
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Cash Book</h2>
+    <form method="POST" class="border p-4 rounded bg-light shadow-sm">
+        {% csrf_token %}
+
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                {{ form.name }}
+            </div>
+            <div class="col-md-6">
+                {{ form.amount }}
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6 d-flex align-items-center">
+                {{ form.cash_type }}
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+                {{ form.tran_type }}
+            </div>
+        </div>
+
+        <!-- Third Row: Transaction Platform -->
+        <div class="row mb-3">
+            <div class="col-md-6 d-flex align-items-center">
+               <p>{{ form.tran_plat }}</p> 
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-end">
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-rpZXUnfLldlJbI8MNoG0aNL2ZmsPeKF4EZPkDHd1bwB3INrnR9KNHf2F1dF93c7y" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const transactionType = document.getElementById('id_tran_type');
+        const transactionPlatform = document.getElementById('id_tran_plat');
+
+        function togglePlatformField() {
+            if (transactionType.value === 'upi') {
+                transactionPlatform.closest('p').style.display = 'block'; 
+            } else {
+                transactionPlatform.closest('p').style.display = 'none';
+                transactionPlatform.value = '';  
+            }
+        }
+
+        togglePlatformField();
+
+        transactionType.addEventListener('change', togglePlatformField);
+    });
+</script>
+
+{% endblock %}
