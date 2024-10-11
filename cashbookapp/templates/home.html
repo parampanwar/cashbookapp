@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Data</h1>
+
+    <div class="d-flex justify-content-between mb-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Cash In</th>
+                    <th>Cash Out</th>
+                    <th>Transaction Type</th>
+                    <th>Transaction Platform</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if details %}
+                {% for data in details %}
+                <tr>
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>₹{{ data.amount }}</td>
+                    <td>{% if data.cash_type == 'cash_in' %}
+                        In
+                    {% endif %}</td>
+                    <td>{% if data.cash_type == 'cash_out' %}
+                        Out
+                        {% endif %}
+                    </td>
+                    <td>{{ data.tran_type }}</td>
+                    <td>{{ data.tran_plat}}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="9">No users found.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Pagination Controls -->
+<nav aria-label="Page navigation example" class="text-right" style="margin-right: 130px;">
+    <ul class="pagination justify-content-end">
+        {% if details.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">&laquo; First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ details.previous_page_number }}">Previous</a>
+            </li>
+        {% endif %}
+
+        <li class="page-item active">
+            <span class="page-link">Page {{ details.number }} of {{ details.paginator.num_pages }}</span>
+        </li>
+
+        {% if details.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ details.next_page_number }}">Next</a>
+            </li>
+            
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}
